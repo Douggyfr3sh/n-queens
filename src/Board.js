@@ -74,17 +74,52 @@
     =                 TODO: fill in these Helper Functions                    =
     =========================================================================*/
 
+    /*
+      this.attributes  > this is an instance of Board
+      this.attributes = {
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        n = 4
+      }
+
+     */
+
+
+
+
     // ROWS - run from left to right
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      let count = 0;
+
+      // iterate over this.attributes[rowIndex]
+      for (let i = 0; i < this.attributes[rowIndex].length; i++) {
+        if (this.attributes[rowIndex][i] === 1) {
+          count ++;
+        }
+      }
+
+      if (count > 1) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      for (let prop in this.attributes) {
+        if (prop !== "n") {
+          if (this.hasRowConflictAt(prop)) {
+            return true;
+          }
+        }
+      }
+      return false;
     },
 
 
