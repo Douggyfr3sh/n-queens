@@ -129,12 +129,41 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      //define a counter var = 0
+      let count = 0;
+      //iterate over this.attributes to look at
+      //a specific col in each row
+      for (let row in this.attributes) {
+        if (row !== 'n') {
+          //check if col at colIndex = 1 in current row
+          if (this.attributes[row][colIndex] === 1) {
+            //increment counter
+            count ++;
+          }
+        }
+      }
+      //if counter > 1 return true else false
+      return count > 1 ? true : false;
+
     },
+
+/*
+      [1, 0, 0, 0],
+      [0, 0, 0, 0],
+      [1, 0, 0, 0],
+      [0, 0, 0, 0]
+*/
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      //call hasColConflictAt on each col index
+      for (let i = 0; i < this.attributes.n; i++) {;
+        if (this.hasColConflictAt(i) === true) {
+          return true;
+        }
+      }
+
+      return false;
     },
 
 
