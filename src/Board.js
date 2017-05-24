@@ -113,7 +113,7 @@
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
       for (let prop in this.attributes) {
-        if (prop !== "n") {
+        if (prop !== 'n') {
           if (this.hasRowConflictAt(prop)) {
             return true;
           }
@@ -157,7 +157,7 @@
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
       //call hasColConflictAt on each col index
-      for (let i = 0; i < this.attributes.n; i++) {;
+      for (let i = 0; i < this.attributes.n; i++) {
         if (this.hasColConflictAt(i) === true) {
           return true;
         }
