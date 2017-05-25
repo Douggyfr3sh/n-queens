@@ -144,7 +144,6 @@
       }
       //if counter > 1 return true else false
       return count > 1 ? true : false;
-
     },
 
 /*
@@ -172,14 +171,50 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-    hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+    //old function parameter name: majorDiagonalColumnIndexAtFirstRow
+    hasMajorDiagonalConflictAt: function(index) {
+      //create a counter variable = 0
+      let count = 0;
+      let colIndex = index;
+      //for every row (n)
+      for (var i = 0; i < this.attributes.n; i++) {
+        //if arg + i is defined
+        if (this.attributes[i][colIndex] !== undefined) {
+          //for arg + i at the current row
+          if (this.attributes[i][colIndex] === 1) {
+            count ++;
+          }
+
+        } else {
+          //We reached the bounds of the gameboard
+          return count > 1 ? true : false;
+        }
+
+        colIndex ++;
+      }
+
+      //Return based on piece count
+      return count > 1 ? true : false;
+
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+
+
     },
+
+
+     // //return var
+     //  let areConflicts = false;
+     //  //call hasMajor on all columns for all n rows
+     //  for (var i = 0; i < this.attributes.n; i++) {
+     //    for (var j = 0; j < this.attributes.n; i++) {
+     //      hasMajorDiagonalConflictAt(j);
+     //    }
+     //  }
+
+     //  //return areConflicts
 
 
 
