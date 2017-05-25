@@ -27,6 +27,9 @@ window.decimalToMatrixHelper = function(n, decimalIndex) {
 
   var binaryMatrix = []; // our matrix to hold the result
   var decToBinResult = [];
+  //initialize an array to store count of #pieces in each col
+  var colPiecesCnt = [];
+  for (var i = 0; i < n; i++) { colPiecesCnt.push(0); }
 
   var buildBinaryNumber = function(num) {
     if (num > 1) {
@@ -42,19 +45,47 @@ window.decimalToMatrixHelper = function(n, decimalIndex) {
   buildBinaryNumber(decimalIndex);
   //console.log('decToBinResult > ', decToBinResult);
 
+  //Add leading zeroes
   while (decToBinResult.length < n * n) {
     decToBinResult.unshift(0);
   }
 
-  //console.log('decToBinResult > ', decToBinResult);
-
-  for (var row = n-1; row >= 0; row--) {
-    for (var col = n-1; col >= 0; col--) {
-      if (binaryMatrix[row] === undefined) {
-        binaryMatrix[row] = [decToBinResult.pop()];
-      } else {
-        binaryMatrix[row].unshift(decToBinResult.pop());
+  //Determine number of pieces ('1's);
+  var pieceCnt = 0;
+  for (var i = 0; i < decToBinResult.length; i++) {
+    if (decToBinResult[i] === 1) {
+      pieceCnt++;
+      if (pieceCnt > n) {
+        return -1;  //If we have too many pieces return immediately
       }
+    }
+  }
+
+  //If not exactly n number of '1's, return -1 error value
+  if (pieceCnt !== n) {
+    return -1;
+  }
+
+
+  //console.log('decToBinResult > ', decToBinResult);
+  //var popVal; var onesCntPerRow;
+  var popVal;
+  var onesCntPerRow;
+  for (var row = n-1; row >= 0; row--) {
+    onesCntPerRow = 0;
+    for (var col = n-1; col >= 0; col--) {
+      popVal = decToBinResult.pop();
+      if (binaryMatrix[row] === undefined) {
+        binaryMatrix[row] = [popVal]; //change to popVal
+      } else {
+        binaryMatrix[row].unshift(popVal); //change to popVal
+      }
+      if (popVal === 1) {
+        onesCntPerRow++;
+        colPiecesCnt[col]++;
+      }
+      //any time a row has >1 piece it cannot be a solution
+      if (onesCntPerRow > 1 || colPiecesCnt[col] > 1) return -1; //-- can immediately return
     }
   }
 
@@ -63,38 +94,40 @@ window.decimalToMatrixHelper = function(n, decimalIndex) {
   return binaryMatrix;
 };
 
+
+/*
+  hasRowConflictAt
+  hasAnyRowConflicts
+  hasColConflictAt
+  hasAnyColConflicts
+*/
+
 window.findNRooksSolution = function(n) {
-  // var solution = undefined; //fixme
-
-  // create an empty n by n gameboard
-
-  /* recursive function fn{
-
-
-      if pieces on board < n
-        call helpers to check if conflicts on this gameboard
-          if yes
-            move a piece around
-            recursive call fn
-          else
-            add a piece
-            recursive call fn
-      else // pieces on board === n
-        call helpers to check if conflicts on this gameboard
-          if yes
-            move a piece around
-          if no
-            return gameboard
-
-
-  } */
-
-
-
-
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return solution;
+  var solution; // = new Board({n: n});
+  //iterate over all possible game boards from 2(exp n) - 1 to 2(exp n*n) - 1
+  var start = (2 ** n) - 1;  //1
+  var end = (2 ** (n*n)) - 1; // 65535
+  for (var i = start; i <= end; i++) {
+    //for each iteration, check using relevant helper functions
+    //if decToMatrixHelper(n,i) !== -1
+    solution = decimalToMatrixHelper(n,i);
+    if (solution !== -1) {
+      //Our helper function now does col and row collission testing for us!
+      console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
+      return solution; //
+    }
+  }
 };
+
+
+
+
+
+
+
+
+
+
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
@@ -119,3 +152,31 @@ window.countNQueensSolutions = function(n) {
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };
+
+
+
+
+  // var solution = undefined; //fixme
+
+  // create an empty n by n gameboard
+
+  /* recursive function fn{
+
+
+      if pieces on board < n
+        call helpers to check if conflicts on this gameboard
+          if yes
+            move a piece around
+            recursive call fn
+          else
+            add a piece
+            recursive call fn
+      else // pieces on board === n
+        call helpers to check if conflicts on this gameboard
+          if yes
+            move a piece around
+          if no
+            return gameboard
+
+
+  } */
