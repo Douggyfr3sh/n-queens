@@ -97,7 +97,7 @@ window.findNRooksSolution = function(n) {
   var currentMatrix;
   var solution; // = new Board({n: n});
   //iterate over all possible game boards from 2(exp n) - 1 to 2(exp n*n) - 1
-  var start = (2 ** n) - 1;
+  var start = (2 ** n) - 1; //Math.pow(7, 2); // > 49
   var end = (2 ** (n*n)) - 1;
   for (var i = start; i <= end; i++) {
     //for each iteration, check using relevant helper functions
