@@ -172,17 +172,16 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     //old function parameter name: majorDiagonalColumnIndexAtFirstRow
-    hasMajorDiagonalConflictAt: function(index) {
-      //create a counter variable = 0
+    hasMajorDiagonalConflictAt: function(rowIndex, columnIndex) {
       let count = 0;
-      let colIndex = index;
+      let colIndex = columnIndex;
       //for every row (n)
-      for (var i = 0; i < this.attributes.n; i++) {
+      for (var i = rowIndex; i < this.attributes.n; i++) {
         //if arg + i is defined
-        if (this.attributes[i][colIndex] !== undefined) {
+        if (this.attributes[i] !== undefined && this.attributes[i][colIndex] !== undefined) {
           //for arg + i at the current row
           if (this.attributes[i][colIndex] === 1) {
-            count ++;
+            count++;
           }
 
         } else {
@@ -190,7 +189,7 @@
           return count > 1 ? true : false;
         }
 
-        colIndex ++;
+        colIndex++;
       }
 
       //Return based on piece count
@@ -200,21 +199,16 @@
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-
-
+      //use nested for loop to call every valid combo
+      for (var i = 0; i < this.attributes.n; i++) {
+        for (var j = 0; j < this.attributes.n; j++) {
+          if(this.hasMajorDiagonalConflictAt(i,j)) {
+            return true;
+          }
+        }
+      }
+      return false;
     },
-
-
-     // //return var
-     //  let areConflicts = false;
-     //  //call hasMajor on all columns for all n rows
-     //  for (var i = 0; i < this.attributes.n; i++) {
-     //    for (var j = 0; j < this.attributes.n; i++) {
-     //      hasMajorDiagonalConflictAt(j);
-     //    }
-     //  }
-
-     //  //return areConflicts
 
 
 
