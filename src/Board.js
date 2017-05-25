@@ -216,13 +216,41 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+    hasMinorDiagonalConflictAt: function(rowIndex, columnIndex) {
+      let count = 0;
+      let colIndex = columnIndex;
+      //for every row (n)
+      for (var i = rowIndex; i < this.attributes.n; i++) {
+        //if arg + i is defined
+        if (this.attributes[i] !== undefined && this.attributes[i][colIndex] !== undefined) {
+          //for arg + i at the current row
+          if (this.attributes[i][colIndex] === 1) {
+            count++;
+          }
+
+        } else {
+          //We reached the bounds of the gameboard
+          return count > 1 ? true : false;
+        }
+
+        colIndex--;
+      }
+
+      //Return based on piece count
+      return count > 1 ? true : false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      //use nested for loop to call every valid combo
+      for (var i = 0; i < this.attributes.n; i++) {
+        for (var j = 0; j < this.attributes.n; j++) {
+          if(this.hasMinorDiagonalConflictAt(i,j)) {
+            return true;
+          }
+        }
+      }
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
