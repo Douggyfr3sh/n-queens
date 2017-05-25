@@ -16,7 +16,33 @@
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
+  // var solution = undefined; //fixme
+
+  // create an empty n by n gameboard
+
+  /* recursive function fn{
+
+
+      if pieces on board < n
+        call helpers to check if conflicts on this gameboard
+          if yes
+            move a piece around
+            recursive call fn
+          else
+            add a piece
+            recursive call fn
+      else // pieces on board === n
+        call helpers to check if conflicts on this gameboard
+          if yes
+            move a piece around
+          if no
+            return gameboard
+
+
+  } */
+
+
+
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
