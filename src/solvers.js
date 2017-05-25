@@ -14,6 +14,40 @@
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
 
 
+window.decimalToMatrixHelper = function(nByN, decimalIndex) {
+
+  var binaryMatrix = []; // our matrix to hold the result
+  var decToBinResult = [];
+
+  var buildBinaryNumber = function(num) {
+    if (num > 1) {
+      // console.log('unshift > ', decToBinResult.unshift(num % 2));
+      decToBinResult.unshift(num % 2);
+      buildBinaryNumber(Math.floor(num/2));
+    } else {
+      // console.log('unshift > ', decToBinResult.unshift(num));
+      decToBinResult.unshift(num);
+    }
+  }
+  // we now have line20array with a binary representation of our decimal number
+  buildBinaryNumber(decimalIndex);
+  console.log('decToBinResult > ', decToBinResult);
+
+    // take that line20array and make a matrix out of it:
+    // (inner loop is columns, outer loop is rows)
+    //
+    // for n times
+    //   for n times // starting in bottom right corner
+    //     if (line20arr.len > 0)
+    //       pop last value in our line20Array and put in current location
+    //     else (we have popped all elementsout)
+    //       start putting 0s in matrix
+    //
+
+
+  return binaryMatrix;
+
+}
 
 window.findNRooksSolution = function(n) {
   // var solution = undefined; //fixme
