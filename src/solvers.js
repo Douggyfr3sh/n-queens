@@ -23,12 +23,12 @@ window.decimalToMatrixHelper = function(nByN, decimalIndex) {
     if (num > 1) {
       // console.log('unshift > ', decToBinResult.unshift(num % 2));
       decToBinResult.unshift(num % 2);
-      buildBinaryNumber(Math.floor(num/2));
+      buildBinaryNumber(Math.floor(num / 2));
     } else {
       // console.log('unshift > ', decToBinResult.unshift(num));
       decToBinResult.unshift(num);
     }
-  }
+  };
   // we now have line20array with a binary representation of our decimal number
   buildBinaryNumber(decimalIndex);
   console.log('decToBinResult > ', decToBinResult);
@@ -47,7 +47,7 @@ window.decimalToMatrixHelper = function(nByN, decimalIndex) {
 
   return binaryMatrix;
 
-}
+};
 
 window.findNRooksSolution = function(n) {
   // var solution = undefined; //fixme
