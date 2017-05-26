@@ -15,6 +15,7 @@
         this.set(makeEmptyMatrix(this.get('n')));
       } else {
         this.set('n', params.length);
+       // this.set(params); //modified
       }
     },
 

@@ -55,6 +55,7 @@ window.decimalToMatrixHelper = function(n, decimalIndex) {
   for (var i = 0; i < decToBinResult.length; i++) {
     if (decToBinResult[i] === 1) {
       pieceCnt++;
+<<<<<<< HEAD
       if (pieceCnt > n) {
         return -1;  //If we have too many pieces return immediately
       }
@@ -86,14 +87,42 @@ window.decimalToMatrixHelper = function(n, decimalIndex) {
       }
       //any time a row has >1 piece it cannot be a solution
       if (onesCntPerRow > 1 || colPiecesCnt[col] > 1) return -1; //-- can immediately return
+=======
     }
   }
+
+  //If not exactly n number of '1's, return -1 error value
+  if (pieceCnt !== n) {
+    return -1;
+  }
+
+
+  //console.log('decToBinResult > ', decToBinResult);
+  //var popVal; var onesCntPerRow;
+  for (var row = n-1; row >= 0; row--) {
+    //onesCntPerRow = 0;
+    for (var col = n-1; col >= 0; col--) {
+      //var popVal = decToBinResult.pop();
+      if (binaryMatrix[row] === undefined) {
+        binaryMatrix[row] = [decToBinResult.pop()]; //change to popVal
+      } else {
+        binaryMatrix[row].unshift(decToBinResult.pop()); //change to popVal
+      }
+      //if (popVal === 1) onesCntPerRow++;
+      //if (onesCntPerRow > 1) return -1; -- can immediately return since
+      //any time a row has >1 piece it cannot be a solution
+>>>>>>> 7219d72335028ee144e0ba73ffcbe220ae14fa95
+    }
+  }
+
+
 
   //console.log('binary matrix: ', binaryMatrix);
 
   return binaryMatrix;
 };
 
+<<<<<<< HEAD
 
 /*
   hasRowConflictAt
@@ -126,8 +155,42 @@ window.findNRooksSolution = function(n) {
 
 
 
+=======
+>>>>>>> 7219d72335028ee144e0ba73ffcbe220ae14fa95
 
+/*
+  hasRowConflictAt
+  hasAnyRowConflicts
+  hasColConflictAt
+  hasAnyColConflicts
+*/
 
+<<<<<<< HEAD
+=======
+window.findNRooksSolution = function(n) {
+  var currentMatrix;
+  var solution; // = new Board({n: n});
+  //iterate over all possible game boards from 2(exp n) - 1 to 2(exp n*n) - 1
+  var start = (2 ** n) - 1; //Math.pow(7, 2); // > 49
+  var end = (2 ** (n*n)) - 1;
+  for (var i = start; i <= end; i++) {
+    //for each iteration, check using relevant helper functions
+    //if decToMatrixHelper(n,i) !== -1
+    if (decimalToMatrixHelper(n,i) !== -1) {
+      currentMatrix = decimalToMatrixHelper(n,i);  // given 1,1  => [ [1] ]
+      solution = new Board(currentMatrix);
+      console.log('solution board = ', solution);
+      //hasAnyRowConflicts(decimalToMatrixHelper(n, i));
+      //hasAnyColumnConflicts(decimalToMatrixHelper(n, i));
+      if (!solution.hasAnyRowConflicts() && !solution.hasAnyColConflicts()) {
+        //if both return false, return currentMatrix, as it is a valid solution
+        console.log('Single solution for ' + n + ' rooks:', JSON.stringify(currentMatrix));
+        return currentMatrix;
+      }
+    }
+  }
+};
+>>>>>>> 7219d72335028ee144e0ba73ffcbe220ae14fa95
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
@@ -180,3 +243,8 @@ window.countNQueensSolutions = function(n) {
 
 
   } */
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7219d72335028ee144e0ba73ffcbe220ae14fa95
