@@ -135,11 +135,41 @@ window.findNRooksSolution = function(n) {
   return firstSolution;
 };
 
+
+
+
+
+
+
+
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0;
 
-  //console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
+  var solution = new Board({n: n});
+  var countOfPieces = 0;
+
+  var inner = function() {
+    for (var i = 0; i < n; i++) {
+      solution.togglePiece(countOfPieces, i);
+      countOfPieces++;
+
+      // we are using countOfPieces as our row and i as our column
+      if (!solution.hasColConflictAt(i) && !solution.hasRowConflictAt(countOfPieces - 1)) {
+        if (countOfPieces === n) {
+          // console.log('line 117 solution rows ------------------: ', solution.rows());
+          solutionCount++;
+        } else {
+          inner();
+        }
+      }
+      countOfPieces--;
+      solution.togglePiece(countOfPieces, i);
+    }
+  };
+
+  inner();
+
   return solutionCount;
 };
 
@@ -217,32 +247,46 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
 
-  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
+  //If n = 0, there is no gameboard
+  if (n === 0) {
+    return 1;
+  }
+
+  //if n = 2 or 3, there is no valid solution
+  if (n === 2) {
+    return 0;
+  }
+
+  if (n === 3) {
+    return 0;
+  }
+
+  var solutionCount = 0;
+
+  var solution = new Board({n: n});
+  var countOfPieces = 0;
+
+  var inner = function() {
+    for (var i = 0; i < n; i++) {
+      solution.togglePiece(countOfPieces, i);
+      countOfPieces++;
+
+      // we are using countOfPieces as our row and i as our column
+      if (!solution.hasColConflictAt(i) && !solution.hasRowConflictAt(countOfPieces - 1) && !solution.hasAnyMajorDiagonalConflicts() && !solution.hasAnyMinorDiagonalConflicts()) {
+        if (countOfPieces === n) {
+          // console.log('line 117 solution rows ------------------: ', solution.rows());
+          solutionCount++;
+        } else {
+          inner();
+        }
+      }
+      countOfPieces--;
+      solution.togglePiece(countOfPieces, i);
+    }
+  };
+
+  inner();
+
   return solutionCount;
 };
-
-
-
-
-  // var solution = undefined; //fixme
-
-  // create an empty n by n gameboard
-
-  /* recursive function fn{
-      if pieces on board < n
-        call helpers to check if conflicts on this gameboard
-          if yes
-            move a piece around
-            recursive call fn
-          else
-            add a piece
-            recursive call fn
-      else // pieces on board === n
-        call helpers to check if conflicts on this gameboard
-          if yes
-            move a piece around
-          if no
-            return gameboard
-  } */
