@@ -13,7 +13,7 @@ describe('solvers', function() {
         }, 0);
 
         expect(solutionBoard.get('n')).to.equal(n);
-        expect(numPieces).to.equal(n); //Failing
+        expect(numPieces).to.equal(n);
         expect(solutionBoard.hasAnyRooksConflicts()).to.be.equal(false);
       });
     });
@@ -75,6 +75,26 @@ describe('solvers', function() {
 
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
+    });
+
+  });
+
+  describe('CRANK IT UP TO 12!!', function() {
+
+    it('Should solve 9-Queens', function() {
+        expect(countNQueensSolutions(9)).to.be.equal(352);
+    });
+
+    it('Should solve 10-Queens', function() {
+        expect(countNQueensSolutions(10)).to.be.equal(724);
+    });
+
+    it('Should solve 11-Queens', function() {
+        expect(countNQueensSolutions(11)).to.be.equal(2680);
+    });
+
+    it('Should solve 12-Queens', function() {
+        expect(countNQueensSolutions(12)).to.be.equal(14200);
     });
 
   });
