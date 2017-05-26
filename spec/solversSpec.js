@@ -93,7 +93,7 @@ describe('solvers', function() {
         expect(countNQueensSolutions(11)).to.be.equal(2680);
     });
 
-    it('Should solve 12-Queens', function() {
+    it('Should solve 12-Queens!!!', function() {
         expect(countNQueensSolutions(12)).to.be.equal(14200);
     });
 
